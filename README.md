@@ -1,4 +1,4 @@
-# AddressBook
+# This is a static address book where user can perform crud on contact. The data will be persists until the browser don't refreshes.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.3.
 
