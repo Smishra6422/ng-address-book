@@ -1,0 +1,59 @@
+<div class="modal show d-block" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <form class="d-flex" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                <div class="flex-grow-1 mb-24">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" formControlName="name" name="name" placeholder="Enter Name">
+                        <small *ngIf="(contactForm.get('name')?.touched && contactForm.get('name')?.errors?.required)"
+                          class="text-danger">Name is required</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" formControlName="email" name="email" placeholder="Enter Email">
+                        <small *ngIf="(contactForm.get('email')?.touched && contactForm.get('email')?.errors?.required)"
+                                 class="text-danger">Email is required</small>
+                        <small *ngIf="(contactForm.get('email')?.touched && contactForm.get('email')?.errors?.pattern?.requiredPattern)"
+                                 class="text-danger">Email is Invalid</small>
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-group w-50 pr-8">
+                            <label for="mobile">Mobile</label>
+                            <input type="tel" class="form-control" id="mobile" formControlName="mobile" name="mobile" placeholder="Enter Mobile No.">
+                            <small *ngIf="(contactForm.get('mobile')?.touched && contactForm.get('mobile')?.errors?.required)"
+                                 class="text-danger">Phone is required</small>
+                            <small *ngIf="(contactForm.get('mobile')?.touched && contactForm.get('mobile')?.errors?.pattern?.requiredPattern)"
+                                 class="text-danger">Phone is invalid</small>
+                        </div>
+                        <div class="form-group w-50 pl-8">
+                            <label for="landline">Landline</label>
+                            <input type="tel" class="form-control" id="landline" formControlName="landline" name="landline" placeholder="Enter Landline No.">
+                            <small *ngIf="(contactForm.get('landline')?.touched && contactForm.get('landline')?.errors?.required)"
+                                 class="text-danger">Landline no is required</small>
+                            <small *ngIf="(contactForm.get('landline')?.touched && contactForm.get('landline')?.errors?.pattern?.requiredPattern)"
+                                 class="text-danger">Landline no is valid</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="website">Website</label>
+                        <input type="text" class="form-control" id="website" formControlName="website" name="website" placeholder="Enter Website URL">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea class="form-control" id="address" formControlName="address" name="address" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="d-flex align-items-end mt-20">
+                    <button type="submit" class="btn btn-lime-green add-contact">Add</button>
+                    <button type="submit" class="btn btn-lime-green update-contact d-none">Update</button>
+                </div>
+                <div class="close-icon p-4 cursor-pointer" (click)="onCloseContactForm()">
+                    <i class="fas fa-times"></i>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>

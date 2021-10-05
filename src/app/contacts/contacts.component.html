@@ -1,0 +1,12 @@
+<div class="d-flex">
+    <div class="contact-list mr-60">
+        <ul class="list-group">
+            <li class="list-group-item" [class.active]="contact.id == selectedContactId" [routerLink]="['contact-detail/', contact.id]" data-id="${contact.id}" *ngFor="let contact of contacts;">
+                <h2 class="text-secondary-black text-capitalize mb-8" >{{contact.name}}</h2>
+                <small class="text-secondary-black d-block font-weight-bold">{{contact.email}}</small>
+                <small class="text-secondary-black font-weight-bold">+91 {{contact.mobile}}</small>
+            </li>
+        </ul>
+    </div>
+    <router-outlet></router-outlet>
+</div>
