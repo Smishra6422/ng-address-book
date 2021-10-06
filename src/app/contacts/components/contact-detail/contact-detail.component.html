@@ -1,0 +1,40 @@
+<div class="contact-detail">
+    <div class="d-flex" *ngIf="contact">
+        <div class="max-w-350 mr-60">
+        <h1 class="mb-16">{{contact.name}}</h1>
+        <div class="d-flex mb-16">
+            <p class="mr-4">Email: </p>
+            <p>{{contact.email}}</p>
+        </div>
+        <div class="mb-16">
+            <div class="d-flex">
+                <p class="mr-4">Mobile: +91 </p>
+                <p>{{contact.mobile}}</p>
+            </div>
+            <div class="d-flex">
+                <p class="mr-4">Landline: </p>
+                <p>{{contact.landline}}</p>
+            </div>
+        </div>
+        <div class="d-flex mb-16">
+            <p class="mr-4">Website: </p>
+            <p>{{contact.website}}</p>
+        </div>
+        <div class="d-flex mb-16">
+            <p class="mr-4">Address: </p>
+            <pre class="contact-address">{{contact.address}}</pre>
+        </div>
+    </div>
+    <div class="d-flex align-items-baseline">
+        <div id="edit-contact" (click)="onEdit(contact.id)" class="d-flex align-items-center cursor-pointer mr-40">
+            <i class="fas fa-pencil-alt mr-8"></i>
+            <span class="font-weight-semi-bold">Edit</span>
+        </div>
+        <div id="delete-contact" (click)="onDelete(contact.id)" class="d-flex align-items-center cursor-pointer">
+            <i class="fas fa-trash-alt mr-8"></i>
+            <span class="font-weight-semi-bold">Delete</span>
+        </div>
+    </div>
+    </div>
+    <h2 *ngIf="!contact">Contact Detail does not exist!</h2>
+</div>
