@@ -2,23 +2,21 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ContactsComponent } from './contacts/contacts.component';
-import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
-import { ContactFormComponent } from './shared/contact-form/contact-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+import { ContactFormComponent } from './shared/contact-form';
+import { ContactsModule } from './contacts/contacts.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContactsComponent,
-    ContactDetailComponent,
     ContactFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ContactsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

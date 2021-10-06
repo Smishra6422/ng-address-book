@@ -7,32 +7,39 @@
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" formControlName="name" name="name" placeholder="Enter Name">
-                        <small *ngIf="(contactForm.get('name')?.touched && contactForm.get('name')?.errors?.required)"
+                        <small *ngIf="(contactForm.get('name')?.touched && contactForm.get('name')?.errors?.required)
+                                || (idFormSubmitted && contactForm.get('name')?.errors?.required)"
                           class="text-danger">Name is required</small>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" formControlName="email" name="email" placeholder="Enter Email">
-                        <small *ngIf="(contactForm.get('email')?.touched && contactForm.get('email')?.errors?.required)"
+                        <small *ngIf="(contactForm.get('email')?.touched && contactForm.get('email')?.errors?.required)
+                                    || (idFormSubmitted && contactForm.get('email')?.errors?.required)"
                                  class="text-danger">Email is required</small>
-                        <small *ngIf="(contactForm.get('email')?.touched && contactForm.get('email')?.errors?.pattern?.requiredPattern)"
+                        <small *ngIf="(contactForm.get('email')?.touched && contactForm.get('email')?.errors?.pattern?.requiredPattern)
+                                    || (idFormSubmitted && contactForm.get('email')?.errors?.pattern?.requiredPattern)"
                                  class="text-danger">Email is Invalid</small>
                     </div>
                     <div class="d-flex">
                         <div class="form-group w-50 pr-8">
                             <label for="mobile">Mobile</label>
                             <input type="tel" class="form-control" id="mobile" formControlName="mobile" name="mobile" placeholder="Enter Mobile No.">
-                            <small *ngIf="(contactForm.get('mobile')?.touched && contactForm.get('mobile')?.errors?.required)"
+                            <small *ngIf="(contactForm.get('mobile')?.touched && contactForm.get('mobile')?.errors?.required)
+                                    || (idFormSubmitted && contactForm.get('mobile')?.errors?.required)"
                                  class="text-danger">Phone is required</small>
-                            <small *ngIf="(contactForm.get('mobile')?.touched && contactForm.get('mobile')?.errors?.pattern?.requiredPattern)"
+                            <small *ngIf="(contactForm.get('mobile')?.touched && contactForm.get('mobile')?.errors?.pattern?.requiredPattern)
+                                    || (idFormSubmitted && contactForm.get('mobile')?.errors?.pattern?.requiredPattern)"
                                  class="text-danger">Phone is invalid</small>
                         </div>
                         <div class="form-group w-50 pl-8">
                             <label for="landline">Landline</label>
                             <input type="tel" class="form-control" id="landline" formControlName="landline" name="landline" placeholder="Enter Landline No.">
-                            <small *ngIf="(contactForm.get('landline')?.touched && contactForm.get('landline')?.errors?.required)"
+                            <small *ngIf="(contactForm.get('landline')?.touched && contactForm.get('landline')?.errors?.required)
+                                    || (idFormSubmitted && contactForm.get('landline')?.errors?.required)"
                                  class="text-danger">Landline no is required</small>
-                            <small *ngIf="(contactForm.get('landline')?.touched && contactForm.get('landline')?.errors?.pattern?.requiredPattern)"
+                            <small *ngIf="(contactForm.get('landline')?.touched && contactForm.get('landline')?.errors?.pattern?.requiredPattern)
+                                    || (idFormSubmitted && contactForm.get('landline')?.errors?.pattern?.requiredPattern)"
                                  class="text-danger">Landline no is valid</small>
                         </div>
                     </div>

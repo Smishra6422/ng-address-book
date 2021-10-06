@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Contact } from './contacts/contact.modal';
-import { ContactsService } from './contacts/contacts.service';
+import { ContactsService, Contact } from './contacts';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   contacts: Contact[];
-  constructor(private _router: Router, private _contacts: ContactsService){}
+  constructor(private router: Router, private contactsService: ContactsService){}
 
   ngOnInit(): void {
-    this.contacts = this._contacts.contacts;
+    this.contacts = this.contactsService.contacts;
   }
   openContactForm() {
-    this._router.navigateByUrl('/contacts/add-contact');
+    this.router.navigateByUrl('/contacts/add-contact');
   }
 }
