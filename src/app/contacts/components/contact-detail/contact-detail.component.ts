@@ -16,7 +16,12 @@ export class ContactDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(param => {
-      this.contact = this.contactsService.getContactById(param.id);
+      this.contactsService.getContactById(param.id).subscribe(data => {
+        this.contact = data;
+      }, error => {
+        alert('some error occured');
+        this.router.navigateByUrl('/contacts');
+      });
     });
   }
 
@@ -25,7 +30,15 @@ export class ContactDetailComponent implements OnInit {
   }
   
   onDelete(contactId: String) {
-    this.contactsService.deleteContact(contactId);
+    this.contactsService.deleteContact(contactId).subscribe(data => {
+      this.router.navigateByUrl('/contacts');
+
+      this.contactsService.selectedContactId.next('');
+      this.contactsService.reloadContacts.next(true);
+    }, error => {
+        alert('some error occured');
+    }
+    );
   }
 
 }

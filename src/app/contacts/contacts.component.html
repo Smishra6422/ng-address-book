@@ -1,12 +1,20 @@
 <div class="d-flex">
     <div class="contact-list mr-60">
         <ul class="list-group">
-            <li class="list-group-item" [class.active]="contact.id == selectedContactId" [routerLink]="['contact-detail/', contact.id]" data-id="${contact.id}" *ngFor="let contact of contacts;">
+            <li class="list-group-item" [ngClass]="{'active': contact._id == selectedContactId || (!selectedContactId && first)}" (click)="onSelectContact(contact._id)" *ngFor="let contact of contacts; let first = first;">
                 <h2 class="text-secondary-black text-capitalize mb-8" >{{contact.name}}</h2>
                 <small class="text-secondary-black d-block font-weight-bold">{{contact.email}}</small>
                 <small class="text-secondary-black font-weight-bold">+91 {{contact.mobile}}</small>
             </li>
         </ul>
     </div>
+    <ngx-spinner
+        bdColor="rgba(51,51,51,0.8)"
+        size="medium"
+        color="#fff"
+        type="ball-scale-multiple"
+    *ngIf="isLoading">
+    <p style="font-size: 20px; color: white">Loading...</p>
+    </ngx-spinner>
     <router-outlet></router-outlet>
 </div>

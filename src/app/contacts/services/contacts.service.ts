@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Contact } from '../model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,45 +12,29 @@ export class ContactsService {
   contacts: Contact[] = [];
   selectedContact = new Subject<Contact>();
   selectedContactId = new Subject<String>();
+  reloadContacts = new Subject<Boolean>();
+  isLoading = new Subject<Boolean>();
 
-  constructor(private router: Router) { }
+  constructor(private http: HttpClient) { }
 
-  addContact(contact: Contact) {
-    this.selectedContactId.next(contact.id);
-    this.contacts.push(contact);
+  addContact(contact: Contact): Observable<any> {
+    return this.http.post('https://crudcrud.com/api/e97fbf8bb78b4527aa95003d77520483/address-book', contact);
   }
 
-  getContact(): Contact[] {
-    return this.contacts;
+  getContact(): Observable<any> {
+    return this.http.get('https://crudcrud.com/api/e97fbf8bb78b4527aa95003d77520483/address-book');
   }
 
-  getContactById(id: String) {
-    this.selectedContactId.next(id);
-    return this.contacts.find(contact => contact.id == id);
+  getContactById(id: String): Observable<any> {
+    return this.http.get('https://crudcrud.com/api/e97fbf8bb78b4527aa95003d77520483/address-book/'+ id);
   }
 
   deleteContact(contactId: String) {
-    let contactIndex = this.contacts.findIndex(contact => contact.id == contactId);
-    this.contacts.splice(contactIndex, 1);
-
-    if(this.contacts.length) {
-      if(contactIndex == 0) {
-        this.selectedContactId.next(this.contacts[contactIndex].id);
-        this.router.navigateByUrl('/contacts/contact-detail/'+this.contacts[contactIndex].id); 
-      } 
-      else {
-        this.selectedContactId.next(this.contacts[contactIndex -1].id);
-        this.router.navigateByUrl('/contacts/contact-detail/'+this.contacts[contactIndex -1].id);
-      } 
-    } else {
-      this.router.navigateByUrl('/contacts');
-    }
+    return this.http.delete('https://crudcrud.com/api/e97fbf8bb78b4527aa95003d77520483/address-book/'+ contactId);
   }
 
-  updateContact(updatedContact:Contact) {
-    let contactIndex = this.contacts.findIndex(contact => contact.id == updatedContact.id);
-    this.contacts[contactIndex] = updatedContact;
-    this.router.navigateByUrl('/contacts/contact-detail/' + updatedContact.id);
+  updateContact(id:String, updatedContact:Contact) {
+    return this.http.put('https://crudcrud.com/api/e97fbf8bb78b4527aa95003d77520483/address-book/'+ id, updatedContact);
   }
 
 

@@ -21,18 +21,20 @@ export class ContactFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private location: Location) {
       this.contact = new Contact({});
+      this.intializeContactForm();
     }
     
     ngOnInit(): void {
     this.activatedRoute.data.subscribe(data => {
       this.isEditableContact = data.isEditable;
       if(this.isEditableContact) {
-        let contactToEdit = this.contactsService.getContactById(this.activatedRoute.snapshot.params.id);
-        if(contactToEdit) this.contact = {...contactToEdit};
-      }
+        this.contactsService.getContactById(this.activatedRoute.snapshot.params.id).subscribe(data => {
+          if(data) this.contact = {...data};
+          this.intializeContactForm();
+        });
+      } 
     })
 
-    this.intializeContactForm();
   }
   
   intializeContactForm() {
@@ -49,16 +51,37 @@ export class ContactFormComponent implements OnInit {
   onSubmit() {
     this.idFormSubmitted = true;
     if(this.contactForm.valid) {
+      this.contactsService.isLoading.next(true);
+
       if(this.isEditableContact) {
-        let contact = new Contact({ ...this.contactForm.value, id: this.activatedRoute.snapshot.params.id, });
-        this.contactsService.updateContact(contact);
+        let contact = new Contact({ ...this.contactForm.value});
+        this.contactsService.updateContact(this.activatedRoute.snapshot.params.id, contact).subscribe(data => {
+          this.contactsService.isLoading.next(false);
+          this.router.navigateByUrl('/contacts/contact-detail/'+this.activatedRoute.snapshot.params.id);
+          this.contactForm.reset();
+
+          this.contactsService.selectedContactId.next(this.activatedRoute.snapshot.params.id);
+          this.contactsService.reloadContacts.next(true);
+          
+        }, error => {
+          this.contactsService.isLoading.next(false);
+          alert('some error occured');
+        });
       } else {
         let contact = new Contact({...this.contactForm.value});
-        this.contactsService.addContact(contact)
-        this.router.navigateByUrl('/contacts/contact-detail/'+contact.id);
+        this.contactsService.addContact(contact).subscribe(data => {
+          this.contactsService.isLoading.next(false);
+          this.router.navigateByUrl('/contacts/contact-detail/'+data._id);
+          this.contactForm.reset();
+
+          this.contactsService.selectedContactId.next(data._id);
+          this.contactsService.reloadContacts.next(true);
+        }, error => {
+          this.contactsService.isLoading.next(false);
+          alert('some error occured');
+        })
       }
 
-      this.contactForm.reset();
     } 
   }
 

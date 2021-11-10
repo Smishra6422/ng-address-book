@@ -53,8 +53,8 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-end mt-20">
-                    <button type="submit" class="btn btn-lime-green add-contact">Add</button>
-                    <button type="submit" class="btn btn-lime-green update-contact d-none">Update</button>
+                    <button type="submit" class="btn btn-lime-green add-contact" *ngIf="!isEditableContact">Add</button>
+                    <button type="submit" class="btn btn-lime-green update-contact" *ngIf="isEditableContact">Update</button>
                 </div>
                 <div class="close-icon p-4 cursor-pointer" (click)="onCloseContactForm()">
                     <i class="fas fa-times"></i>
